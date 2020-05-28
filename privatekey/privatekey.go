@@ -100,7 +100,6 @@ func Read(path string, passphrase string) (key []byte, err error) {
 }
 
 func Write(path string, key []byte, passphrase string, encryptionAlg x509.PEMCipher) (err error) {
-	// turns normal pem into encrypted pem if passphrase is provided
 	if passphrase != NoPassphrase && encryptionAlg != NoEncryptionAlgorithm {
 		block, _ := pem.Decode(key)
 		if block == nil {
