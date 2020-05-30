@@ -1,7 +1,7 @@
 package eev
 
 import (
-	"github.com/Apurer/eev/AES"
+	AES "github.com/Apurer/eev/aes"
 	"errors"
 	"os"
 )
