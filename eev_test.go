@@ -1,7 +1,7 @@
 package eev
 
 import (
-	"github.com/Apurer/eev/privateKey"
+	privateKey "github.com/Apurer/eev/privatekey"
 	"testing"
 )
 

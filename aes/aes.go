@@ -10,7 +10,7 @@ import (
 	"io"
 	"errors"
 	"fmt"
-	"github.com/Apurer/eev/privateKey"
+	privateKey "github.com/Apurer/eev/privatekey"
 )
 
 func Encrypt(key []byte, content string) (encrypted string, err error) {
