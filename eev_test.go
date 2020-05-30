@@ -1,8 +1,7 @@
-package main
+package eev
 
 import (
 	"github.com/Apurer/eev/privateKey"
-	"github.com/Apurer/eev/envVariable"
 	"testing"
 )
 
@@ -25,12 +24,12 @@ func TestFunctions(t *testing.T) {
 	envVariableName := "EEV"
 	envVariableValue := "SuperSecret"
 
-	err = envVariable.Set(envVariableName, envVariableValue, privkey)
+	err = Set(envVariableName, envVariableValue, privkey)
 	if err != nil {
 		t.Errorf("error during setting environment variable function occured with message: %q", err)
 	}
 
-	envVariableDecrypted, err := envVariable.Get(envVariableName, privkey)
+	envVariableDecrypted, err := Get(envVariableName, privkey)
 	if err != nil {
 		t.Errorf("error during getting environment variable function occured with message: %q", err)
 	}

@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"github.com/Apurer/eev/privateKey"
 )
-// remove passphrase from here and decryption of pem
+
 func Encrypt(key []byte, content string) (encrypted string, err error) {
 	block, _ := pem.Decode(key)
 	if block == nil {
@@ -60,7 +60,7 @@ func Encrypt(key []byte, content string) (encrypted string, err error) {
 		return encrypted, errors.New(fmt.Sprintf("private key type: %s is not supported", keyType))
 	}
 }
-// remove passphrase from here and decryption of pem
+
 func Decrypt(key []byte, content string) (decrypted []byte, err error) {
 	data, err := base64.StdEncoding.DecodeString(content)
 	if err != nil {

@@ -1,33 +1,32 @@
-package main 
+package eev
 
 import (
-	"fmt"
-	"flag"
-	"github.com/Apurer/eev/privateKey"
-	"github.com/Apurer/eev/envVariable"
+	"github.com/Apurer/eev/AES"
+	"errors"
+	"os"
 )
 
-func main () {
-	privkey, err := privateKey.Generate(privateKey.RSA, privateKey.Bits256)
-	if err != nil {
-		fmt.Println(err)
-		return
+func Get(name string, key []byte) (value string, err error) {
+	value = os.Getenv(name)
+	if value == "" {
+		return value, errors.New("environment variable is not set or is empty")
 	}
 
-	envVariableName := "EEV"
-	envVariableValue := "SuperSecret"
-
-	err = envVariable.Set(envVariableName, envVariableValue, privkey)
+	decrypted, err := AES.Decrypt(key, value)
 	if err != nil {
-		fmt.Println(err)
-		return
+		return value, err
 	}
 
-	envVariableDecrypted, err := envVariable.Get(envVariableName, privkey)
+	return string(decrypted), err
+}
+
+func Set(name string, content string, key []byte) (err error) {
+
+	encrypted, err := AES.Encrypt(key, content)
 	if err != nil {
-		fmt.Println(err)
-		return
+		return err
 	}
-	
-	fmt.Println(envVariableDecrypted)
+	err = os.Setenv(name, encrypted)
+
+	return err
 }
