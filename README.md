@@ -5,7 +5,7 @@
 This is Golang package with functions allowing for quick implementation of using encrypted environment variables within your code.
 Usually you would have environment variables in plain text form to quickly read and use within your programs but it can be a problem to store it in this form sometimes.
 If you would store your API key in bash_profile to make value persistant it is easy to unintentionally leak it.
-Encrypting your environment variables gives more secure way of obfuscation important values.
+Encrypting your environment variables is more secure way of obfuscation important values.
 
 ## Helpful code snippets
 
