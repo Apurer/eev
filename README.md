@@ -4,6 +4,7 @@
 ## Helpful code snippets
 
 ### Generate private key
+
 ```go
 package main
 
@@ -17,8 +18,8 @@ func main() {
 	keytype := flag.String("type", "ECDSA", "path to save private key")
 	keysize := flag.Int("size", 192, "size of pivate key in bits")
 	keypath := flag.String("path", "./private-key", "path to save private key")
-	alg := flag.String("alg", "AES192", "encryption algorithm with which private key is encrypted")
-	passphrase := flag.String("passphrase", "", "passphrase with which private key is encrypted")
+	alg := flag.String("alg", "AES192", "encryption algorithm by which private key is encrypted")
+	passphrase := flag.String("passphrase", "", "passphrase by which private key is encrypted")
 	flag.Parse()
 		
 	switch *keytype {
@@ -51,7 +52,7 @@ func main() {
 	}
 }
 ```
-### Get encrypted value on output using specific private key.
+### Get encrypted value on output using specific private key
 
 ```go
 package main
@@ -64,9 +65,8 @@ import (
 )
 
 func main() {
-
 	value := flag.String("value", "", "value to be encrypted")
-	keypath := flag.String("key", "", "path to private key which is to be used for dencryption of environment variable")
+	keypath := flag.String("key", "", "path to private key which is to be used for encryption of value")
 	passphrase := flag.String("passphrase", "", "passphrase by which private key is encrypted")
 	flag.Parse()
 
@@ -83,7 +83,36 @@ func main() {
 	fmt.Println(encrypted)
 }
 ```
+### Decrypt value using specific private key
 
+```go
+package main
+
+import (
+	"github.com/Apurer/eev/privatekey"
+	AES "github.com/Apurer/eev/aes"
+	"flag"
+	"fmt"
+)
+
+func main() {
+	value := flag.String("value", "", "value to be decrypted")
+	keypath := flag.String("key", "", "path to private key which is to be used for decryption of value")
+	passphrase := flag.String("passphrase", "", "passphrase by which private key is decrypted")
+	flag.Parse()
+
+	privkey, err := privatekey.Read(*keypath, *passphrase)
+	if err != nil {
+		panic(err)
+	}
+	
+	decrypted, err := AES.Decrypt(privkey, *value)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(decrypted))
+}
+```
 ### Possible implementation in your program
 
 ```go
@@ -98,7 +127,7 @@ import (
 func main() {
 
 	key := flag.String("key", "", "path to private key which is to be used for dencryption of environment variable")
-	passphrase := flag.String("passphrase", "", "passphrase with which private key is encrypted")
+	passphrase := flag.String("passphrase", "", "passphrase by which private key is encrypted")
 	flag.Parse()
 
 	privkey, err = privatekey.Read(key, passphrase)
