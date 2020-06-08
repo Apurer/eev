@@ -136,7 +136,7 @@ func main() {
 	passphrase := flag.String("passphrase", "", "passphrase by which private key is encrypted")
 	flag.Parse()
 
-	privkey, err = privatekey.Read(key, passphrase)
+	privkey, err = privatekey.Read(*key, *passphrase)
 	if err != nil {
 		panic(err)
 	}
