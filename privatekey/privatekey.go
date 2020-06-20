@@ -93,7 +93,7 @@ func Read(path string, passphrase string) (key []byte, err error) {
 }
 
 func Write(path string, key []byte, passphrase string, encryptionAlg x509.PEMCipher) (err error) {
-	if encryptionAlg != NoEncryptionAlgorithm {
+	if passphrase != NoPassphrase && encryptionAlg != NoEncryptionAlgorithm {
 		block, _ := pem.Decode(key)
 		if block == nil {
 			return errors.New("decoded pem block is empty")
