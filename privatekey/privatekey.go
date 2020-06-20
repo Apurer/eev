@@ -25,13 +25,6 @@ const (
 	NoEncryptionAlgorithm = 0
 )
 
-type Info struct {
-	Id string
-	Type string
-	Size string
-	Path string
-}
-
 func Generate(keyType string, keySize int) (key []byte, err error) {
 	switch keyType {
 	case RSA:
@@ -100,7 +93,7 @@ func Read(path string, passphrase string) (key []byte, err error) {
 }
 
 func Write(path string, key []byte, passphrase string, encryptionAlg x509.PEMCipher) (err error) {
-	if passphrase != NoPassphrase && encryptionAlg != NoEncryptionAlgorithm {
+	if encryptionAlg != NoEncryptionAlgorithm {
 		block, _ := pem.Decode(key)
 		if block == nil {
 			return errors.New("decoded pem block is empty")
